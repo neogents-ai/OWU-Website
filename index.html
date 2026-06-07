@@ -35,9 +35,11 @@
     -webkit-font-smoothing: antialiased;
   }
   * { box-sizing: border-box; }
-  img { max-width: 100%; display: block; }
+  img { max-width: 100%; height: auto; display: block; }
   button { font: inherit; cursor: pointer; }
   a { color: var(--ink); }
+  html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+  input, select, textarea { font-size: 16px; }
 
   .app { max-width: 1260px; margin: 0 auto; padding: 24px 28px 80px; }
   .visually-hidden { position:absolute; left:-9999px; }
@@ -379,10 +381,17 @@
         var(--paper-2) 0 18px,
         var(--paper) 18px 36px);
     border: 2px solid var(--rule);
+    overflow: hidden;
+  }
+  .placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .placeholder-label {
     position: absolute; inset: auto 10px 10px 10px;
-    background: var(--paper); border: 1px solid var(--rule);
+    background: rgba(246,239,225,0.95); border: 1px solid var(--rule);
     padding: 6px 10px;
     font-family: "JetBrains Mono", monospace;
     font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
@@ -563,8 +572,112 @@
     .footer-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 650px) {
-    .app { padding: 16px 14px 60px; }
-    .nav-item { padding: 10px 12px; font-size: 0.95rem; }
+    .app { padding: 12px 12px 60px; }
+
+    /* Masthead */
+    .masthead-top {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      font-size: 0.65rem;
+      text-align: center;
+    }
+    .masthead-meta-center, .masthead-meta-right { text-align: center; }
+    .masthead-title { font-size: clamp(1.8rem, 10vw, 3rem); }
+    .masthead-motto { font-size: 0.95rem; }
+    .masthead-nav { gap: 4px; }
+    .nav-item { padding: 10px 10px; font-size: 0.85rem; letter-spacing: 0.02em; }
+    .text-size { padding: 4px 6px; }
+    .text-size button { min-width: 40px; min-height: 36px; padding: 6px 8px; }
+
+    /* Just In ticker */
+    .justin-label { font-size: 0.9rem; padding: 10px 12px; }
+    .justin-inner { font-size: 0.9rem; gap: 32px; padding: 10px 16px; }
+
+    /* Typography */
+    .big-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    .deck { font-size: 1.1rem; }
+    .lede-headline { font-size: clamp(2rem, 8vw, 3rem); }
+    .lede-subhead { font-size: 1.1rem; }
+    .lede-body { font-size: 1rem; }
+    .dropcap::first-letter { font-size: 3.2rem; }
+
+    /* Buttons */
+    .btn-primary, .btn-secondary { padding: 14px 18px; font-size: 1rem; min-height: 52px; }
+    .btn-big { padding: 16px 18px; font-size: 1.1rem; min-height: 56px; }
+
+    /* Side quote */
+    .side-quote p { font-size: 1.25rem; }
+    .side-quote .q-mark { font-size: 3rem; }
+
+    /* Counter */
+    .counter-value { font-size: 2.4rem; }
+
+    /* Props grid */
+    .prop { grid-template-columns: 48px 1fr; gap: 10px; padding: 16px 14px; }
+    .prop-num { font-size: 2rem; }
+    .prop-title { font-size: 1.15rem; }
+
+    /* Section titles */
+    .section-head { gap: 8px; margin: 14px 0 4px; }
+    .section-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+
+    /* Lie/Truth cards */
+    .lt-card { padding: 16px 14px; }
+    .lt-card h4 { font-size: 1.25rem; }
+
+    /* Editorial + SMS */
+    .editorial { padding: 18px 16px; }
+    .editorial-final { font-size: 1.25rem; }
+    .inline-sms { padding: 18px 16px; }
+    .inline-sms .section-title { font-size: 1.4rem !important; }
+    .inline-sms-form { flex-direction: column; }
+    .inline-sms-form input { border-right: 2px solid var(--paper); border-bottom: 0; }
+    .inline-sms-form .btn-primary { border-left: 2px solid var(--accent); border-top: 0; }
+
+    /* About page */
+    .story { font-size: 1rem; }
+    .pullquote { font-size: 1.25rem; padding: 14px 16px; }
+    .values-head { font-size: 1.4rem; }
+    .value-word { font-size: 1.2rem; }
+    .rail-num { font-size: 3.2rem; }
+    .commitment-band, .band-split { padding: 18px; gap: 16px; }
+    .band-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+
+    /* Leadership */
+    .founder-col { padding: 16px 14px 20px; }
+    .founder-meta h3 { font-size: 1.5rem; }
+    .founder-quote { font-size: 1.15rem; }
+    .founder-body { font-size: 0.98rem; }
+    .founder-photo { box-shadow: 4px 4px 0 var(--rule); }
+
+    /* Get Involved forms */
+    .form-card { padding: 20px 16px; }
+    .form-card h3 { font-size: 1.6rem; }
+    .big-form input, .big-form select { padding: 14px 12px; font-size: 1rem; min-height: 52px; }
+    .goal-count { font-size: 2.4rem; }
+    .challenge-card { padding: 16px; }
+    .challenge-card h4 { font-size: 1.2rem; }
+
+    /* Tracker */
+    .tracker-head h3 { font-size: 1.6rem; }
+    .tracker-controls { padding: 12px; gap: 10px; }
+    .tctrl select, .tctrl input { padding: 12px 10px; font-size: 1rem; min-height: 48px; }
+    .case { padding: 16px 10px; }
+    .case-id { font-size: 0.9rem; }
+    .case-status { font-size: 0.85rem; padding: 4px 8px; }
+    .case-meta { font-size: 0.9rem; gap: 10px; }
+    .case-summary { font-size: 1rem; }
+
+    /* Resources */
+    .res { padding: 16px 14px; }
+    .res h4 { font-size: 1.2rem; }
+
+    /* Footer */
+    .footer-brand { font-size: 1.3rem; }
+    .footer-legal { flex-direction: column; gap: 6px; font-size: 0.7rem; }
+
+    /* Tweaks panel */
+    .tweaks-panel { width: calc(100vw - 24px); right: 12px; bottom: 12px; box-shadow: 6px 6px 0 var(--rule); }
   }
 </style>
 </head>
@@ -683,9 +796,10 @@
       return <div className="rule" aria-hidden="true" />;
     }
 
-    function Placeholder({ label, ratio }) {
+    function Placeholder({ src, alt, label, ratio }) {
       return (
         <div className="placeholder" style={{ aspectRatio: ratio || "16/9" }}>
+          {src ? <img src={src} alt={alt || label || "Placeholder image"} /> : null}
           <div className="placeholder-label">{label || "PLACEHOLDER"}</div>
         </div>
       );
@@ -859,8 +973,13 @@
             </div>
 
             <aside className="lede-side">
-              <Placeholder label="PHOTOGRAPH · Oakland City Hall at dawn" ratio="4/5" />
-              <div className="caption"><strong>Above:</strong> Oakland City Hall. The union has a new address.</div>
+              <Placeholder
+                src="./owu-headquarters.png"
+                alt="O.W.U. Headquarters"
+                label="O.W.U. · Headquarters"
+                ratio="4/5"
+              />
+              <div className="caption"><strong>Above:</strong> O.W.U. Headquarters. The union has a new address.</div>
               <div className="side-quote">
                 <div className="q-mark">“</div>
                 <p>They stopped answering the phone. We picked up our own.</p>
