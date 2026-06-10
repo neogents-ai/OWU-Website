@@ -671,8 +671,9 @@
     .masthead-meta-center, .masthead-meta-right { text-align: center; }
     .masthead-title { font-size: clamp(1.8rem, 10vw, 3rem); }
     .masthead-motto { font-size: 0.95rem; }
-    .masthead-nav { gap: 4px; }
-    .nav-item { padding: 10px 10px; font-size: 0.85rem; letter-spacing: 0.02em; }
+    .masthead-nav { gap: 2px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .masthead-nav::-webkit-scrollbar { display: none; }
+    .nav-item { padding: 8px 6px; font-size: 0.75rem; letter-spacing: 0.01em; white-space: nowrap; }
     /* Just In ticker */
     .justin-label { font-size: 0.9rem; padding: 10px 12px; }
     .justin-inner { font-size: 0.9rem; gap: 32px; padding: 10px 16px; }
