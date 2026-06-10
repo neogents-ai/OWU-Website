@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Oakland Worker — Oakland Workers United</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Serif+Display&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Special+Elite&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --paper: #f6efe1;
+    --paper-2: #efe6d3;
+    --ink: #1a1714;
+    --ink-2: #453d33;
+    --ink-3: #6a5f51;
+    --rule: #1a1714;
+    --accent: #b42318;
+    --accent-2: #8a4a0e;
+    --gold: #d2a14a;
+    --paperline: rgba(26,23,20,0.08);
+  }
+  html { font-size: calc(20px * var(--tx, 1)); }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 400px at 10% 0%, rgba(210,161,74,0.08), transparent 60%),
+      repeating-linear-gradient(180deg, transparent 0 38px, var(--paperline) 38px 39px),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  * { box-sizing: border-box; }
+  img { max-width: 100%; height: auto; display: block; }
+  button { font: inherit; cursor: pointer; }
+  a { color: var(--ink); }
+  html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+  input, select, textarea { font-size: 16px; }
+
+  .app { max-width: 1260px; margin: 0 auto; padding: 24px 28px 80px; }
+  .visually-hidden { position:absolute; left:-9999px; }
+
+  /* ---------- Rules ---------- */
+  .rule { height: 1px; background: var(--rule); margin: 10px 0; }
+  .rule-heavy { height: 3px; background: var(--rule); margin: 14px 0; }
+  .rule-double {
+    height: 6px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: transparent;
+    margin: 8px 0;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead { padding-bottom: 6px; }
+  .masthead-top {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-2);
+    padding: 4px 2px;
+  }
+  .masthead-meta-center { text-align: center; }
+  .masthead-meta-right  { text-align: right; }
+  .masthead-name { text-align: center; padding: 10px 0 8px; }
+  .masthead-title {
+    font-family: "DM Serif Display", "Playfair Display", serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6.2vw, 4.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-transform: none;
+  }
+  .masthead-motto {
+    font-style: italic; color: var(--ink-2); margin-top: 8px; font-size: 1rem;
+  }
+  .masthead-nav {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 6px; padding: 8px 0;
+  }
+  .nav-item {
+    background: transparent; border: 0; padding: 14px 18px;
+    font-family: "DM Serif Display", serif;
+    font-size: 1.05rem; color: var(--ink);
+    border-bottom: 3px solid transparent; border-radius: 0;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .nav-item:hover { background: rgba(26,23,20,0.06); }
+  .nav-item.is-active { border-bottom-color: var(--accent); }
+  .nav-item:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .nav-spacer { flex: 1; }
+
+  .text-size {
+    display: flex; align-items: center; gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-2);
+    padding: 4px 8px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.4);
+  }
+  .text-size-label { margin-right: 6px; }
+  .text-size button {
+    background: var(--paper); border: 1px solid var(--rule);
+    padding: 6px 10px; font-weight: 700;
+    font-family: "DM Serif Display", serif; font-size: 0.95rem;
+    min-width: 44px; min-height: 38px;
+  }
+  .text-size button:hover { background: var(--ink); color: var(--paper); }
+  .text-size button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+  /* ---------- Just In ticker ---------- */
+  .justin {
+    display: flex; align-items: stretch;
+    border: 2px solid var(--rule);
+    background: var(--ink); color: var(--paper);
+    margin: 12px 0;
+    overflow: hidden;
+  }
+  .justin-label {
+    background: var(--accent); color: #fff;
+    font-family: "DM Serif Display", serif;
+    font-size: 1.1rem; letter-spacing: 0.12em;
+    padding: 14px 18px; display: flex; align-items: center;
+    border-right: 2px solid var(--rule);
+    flex: 0 0 auto;
+  }
+  .justin-track { overflow: hidden; flex: 1; display: flex; align-items: center; }
+  .justin-inner {
+    display: flex; gap: 56px; padding: 14px 24px;
+    white-space: nowrap;
+    animation: ticker 60s linear infinite;
+    font-family: "Source Serif 4", serif;
+    font-size: 1rem;
+  }
+  .justin-item::before { content: "◆ "; color: var(--gold); }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .justin-inner { animation: none; }
+  }
+
+  /* ---------- Typography utilities ---------- */
+  .kicker, .section-kicker, .form-kicker, .caption strong, .footer-head, .rail-card-alt .rail-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .section-title, .big-title, .lede-headline, .band-title, .paper-footer .footer-brand {
+    font-family: "DM Serif Display", "Playfair Display", serif;
+    letter-spacing: -0.005em;
+    line-height: 1.02;
+    margin: 0;
+  }
+  .big-title { font-size: clamp(2.4rem, 5vw, 4rem); text-wrap: balance; }
+  .deck { font-size: 1.3rem; font-style: italic; color: var(--ink-2); max-width: 900px; margin-top: 10px; }
+
+  /* ---------- Front page lede ---------- */
+  .lede-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 42px; margin-top: 18px; }
+  .lede-headline { font-size: clamp(2.6rem, 5.4vw, 5rem); }
+  .lede-subhead  { font-size: 1.3rem; font-style: italic; color: var(--ink-2); margin: 14px 0 10px; max-width: 780px; }
+  .byline { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 10px; }
+  .lede-body { column-count: 2; column-gap: 32px; font-size: 1.05rem; line-height: 1.7; margin-top: 10px; }
+  .lede-body p { margin: 0 0 1em; break-inside: avoid; }
+  .dropcap::first-letter {
+    font-family: "DM Serif Display", serif; float: left; font-size: 4.6rem;
+    line-height: 0.85; padding: 6px 10px 0 0; color: var(--accent);
+  }
+  .lede-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+
+  .btn-primary, .btn-secondary {
+    font-family: "DM Serif Display", serif;
+    font-size: 1.1rem;
+    padding: 16px 24px;
+    border: 2px solid var(--rule);
+    text-transform: uppercase; letter-spacing: 0.04em;
+    min-height: 56px;
+  }
+  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+  .btn-primary:focus-visible, .btn-secondary:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .btn-secondary { background: var(--paper); color: var(--ink); }
+  .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+  .btn-big { padding: 20px 24px; font-size: 1.2rem; min-height: 64px; width: 100%; }
+
+  .lede-side { border-left: 1px solid var(--rule); padding-left: 24px; }
+  .caption { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--ink-2); margin: 10px 0 20px; line-height: 1.4; }
+  .caption strong { color: var(--ink); font-family: inherit; }
+  .side-quote {
+    border-top: 3px solid var(--rule);
+    border-bottom: 3px solid var(--rule);
+    padding: 18px 6px 18px;
+    margin: 22px 0;
+    position: relative;
+  }
+  .side-quote .q-mark {
+    font-family: "DM Serif Display", serif;
+    color: var(--accent); font-size: 4rem; line-height: 0.5;
+    margin-bottom: 10px;
+  }
+  .side-quote p {
+    font-family: "DM Serif Display", serif;
+    font-size: 1.5rem; line-height: 1.2; margin: 0 0 12px;
+  }
+  .q-attr { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-2); }
+
+  .counter-box { border: 2px solid var(--rule); padding: 18px; background: #fff; }
+  .counter-label { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-2); }
+  .counter-value { font-family: "DM Serif Display", serif; font-size: 3rem; margin: 2px 0 10px; display:flex; align-items: baseline; gap: 10px; }
+  .counter-total { font-size: 1.2rem; color: var(--ink-3); }
+  .counter-bar { height: 14px; background: var(--paper-2); border: 1px solid var(--rule); position: relative; overflow: hidden; }
+  .counter-bar > div { height: 100%; background: repeating-linear-gradient(135deg, var(--accent) 0 10px, #8f1a11 10px 20px); }
+  .counter-sub { margin-top: 8px; font-size: 0.95rem; color: var(--ink-2); }
+
+  /* ---------- Value props grid ---------- */
+  .section-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin: 20px 0 4px; }
+  .section-head .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+  .section-head .section-kicker { margin-bottom: 0; }
+
+  .props-section { margin-top: 18px; }
+  .props-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-top: 16px;
+  }
+  .prop {
+    display: grid; grid-template-columns: 64px 1fr;
+    gap: 14px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 22px 20px;
+  }
+  .prop-num {
+    font-family: "DM Serif Display", serif;
+    font-size: 2.6rem; line-height: 1; color: var(--accent);
+  }
+  .prop-kicker { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+  .prop-title { font-family: "DM Serif Display", serif; font-size: 1.35rem; line-height: 1.1; margin: 6px 0 10px; }
+
+  /* ---------- Lie / Truth ---------- */
+  .lt-section { margin-top: 18px; }
+  .lt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); margin-top: 16px; }
+  .lt-card {
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 22px 24px;
+    background: #fff;
+  }
+  .lt-tag { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .lt-card h4 { font-family: "DM Serif Display", serif; font-size: 1.5rem; margin: 0 0 10px; line-height: 1.1; }
+  .lt-card p { margin: 0; }
+  .lt-more { display: flex; justify-content: center; margin-top: 24px; }
+
+  /* ---------- Editorial + SMS ---------- */
+  .edit-sms { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; margin-top: 18px; }
+  .editorial {
+    padding: 24px 28px;
+    border: 3px double var(--rule);
+    background: #fff;
+  }
+  .editorial .section-title { font-size: clamp(1.8rem, 3vw, 2.4rem); margin: 6px 0 14px; }
+  .editorial-final { font-family: "DM Serif Display", serif; font-size: 1.5rem; color: var(--accent); }
+
+  .inline-sms {
+    background: var(--ink); color: var(--paper); padding: 24px; border: 3px solid var(--ink);
+  }
+  .inline-sms .section-kicker { color: var(--gold); }
+  .inline-sms .section-title { color: var(--paper); font-size: 1.7rem; }
+  .inline-sms p { color: rgba(246,239,225,0.85); }
+  .inline-sms-form { display: flex; gap: 0; margin-top: 12px; }
+  .inline-sms-form input {
+    flex: 1; padding: 14px 14px; font-size: 1.1rem; min-height: 56px;
+    border: 2px solid var(--paper); background: var(--paper); color: var(--ink);
+    font-family: "Source Serif 4", serif;
+  }
+  .inline-sms-form .btn-primary { border-left: 0; }
+  .inline-sms .disclaimer { font-size: 0.8rem; color: rgba(246,239,225,0.65); margin-top: 10px; line-height: 1.5; }
+  .inline-sms .form-status { background: var(--gold); color: var(--ink); padding: 10px 12px; margin-top: 10px; font-weight: 700; }
+
+  /* ---------- Page headers ---------- */
+  .page-head { margin-top: 8px; }
+
+  /* ---------- About two-col ---------- */
+  .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 42px; margin-top: 18px; }
+  .story {
+    font-size: 1.1rem; line-height: 1.75;
+    column-count: 1;
+  }
+  .story p { margin: 0 0 1.1em; }
+  .story .dropcap { font-size: 1.18rem; }
+  .pullquote {
+    margin: 24px 0; padding: 18px 22px;
+    border-left: 5px solid var(--accent);
+    background: #fff;
+    font-family: "DM Serif Display", serif;
+    font-size: 1.5rem; line-height: 1.2; font-style: italic;
+  }
+  .signoff { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-2); margin-top: 26px; }
+
+  .values-rail > * + * { margin-top: 18px; }
+  .values-head {
+    font-family: "DM Serif Display", serif; font-size: 1.6rem;
+    border-bottom: 3px solid var(--rule); padding-bottom: 8px;
+  }
+  .value-row {
+    display: grid; grid-template-columns: 1fr; padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .value-word { font-family: "DM Serif Display", serif; font-size: 1.4rem; color: var(--accent); }
+  .value-body { color: var(--ink-2); font-size: 1.02rem; }
+
+  .rail-card {
+    background: var(--ink); color: var(--paper);
+    padding: 22px; text-align: center;
+  }
+  .rail-num {
+    font-family: "DM Serif Display", serif; font-size: 4.4rem; line-height: 1;
+  }
+  .rail-num span { color: var(--gold); }
+  .rail-num-label { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 8px; }
+  .rail-card-alt { background: var(--paper-2); color: var(--ink); border: 2px solid var(--rule); text-align: left; }
+  .rail-card-alt .rail-title { color: var(--accent); margin-bottom: 6px; }
+
+  .commitment-band, .band-split {
+    display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center;
+    padding: 26px; border: 3px solid var(--rule);
+    background: #fff; margin-top: 22px;
+  }
+  .band-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 4px 0 10px; }
+
+  /* ---------- Leadership ---------- */
+  .founders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); margin-top: 18px; }
+  .founder-col {
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 22px 22px 28px;
+  }
+  .founder-meta h3 { font-family: "DM Serif Display", serif; font-size: 1.8rem; margin: 12px 0 4px; }
+  .founder-role { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .founder-tags { display: flex; flex-direction: column; gap: 4px; margin: 10px 0 16px; font-size: 0.95rem; color: var(--ink-2); }
+  .founder-quote {
+    font-family: "DM Serif Display", serif; font-size: 1.4rem; line-height: 1.2;
+    border-top: 3px solid var(--rule); border-bottom: 1px solid var(--rule);
+    margin: 10px 0; padding: 14px 0;
+  }
+  .founder-body { font-size: 1.05rem; line-height: 1.65; }
+
+  /* ---------- Founder photos ---------- */
+  .founder-photo {
+    width: 100%; aspect-ratio: 3/4;
+    border: 2px solid var(--rule);
+    background: var(--paper-2);
+    overflow: hidden;
+    filter: grayscale(0.15) contrast(1.02);
+    box-shadow: 6px 6px 0 var(--rule);
+  }
+  .founder-photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
+  }
+
+  /* ---------- Placeholder art ---------- */
+  .placeholder {
+    position: relative; width: 100%;
+    background:
+      repeating-linear-gradient(135deg,
+        var(--paper-2) 0 18px,
+        var(--paper) 18px 36px);
+    border: 2px solid var(--rule);
+    overflow: hidden;
+  }
+  .placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .placeholder-label {
+    position: absolute; inset: auto 10px 10px 10px;
+    background: rgba(246,239,225,0.95); border: 1px solid var(--rule);
+    padding: 6px 10px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  /* ---------- Get Involved ---------- */
+  .forms-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; margin-top: 20px; }
+  .form-card {
+    background: #fff; border: 3px solid var(--rule);
+    padding: 28px;
+  }
+  .form-card h3 { font-family: "DM Serif Display", serif; font-size: 2rem; margin: 4px 0 10px; }
+  .form-lede { color: var(--ink-2); margin-bottom: 18px; }
+  .big-form { display: flex; flex-direction: column; gap: 16px; }
+  .big-form label { display: flex; flex-direction: column; gap: 6px; }
+  .big-form label span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .big-form input, .big-form select {
+    padding: 16px 14px; font-size: 1.15rem; min-height: 56px;
+    border: 2px solid var(--rule); background: var(--paper);
+    font-family: "Source Serif 4", serif; color: var(--ink);
+  }
+  .big-form input:focus, .big-form select:focus {
+    outline: 3px solid var(--gold); outline-offset: 2px;
+  }
+  .form-status {
+    margin-top: 8px; padding: 14px 16px;
+    background: var(--gold); color: var(--ink);
+    border: 2px solid var(--rule);
+    font-weight: 700;
+  }
+  .disclaimer {
+    font-size: 0.88rem; color: var(--ink-2); margin-top: 14px; line-height: 1.5;
+  }
+  .form-side > * + * { margin-top: 22px; }
+  .form-card-sms { background: var(--paper); }
+  .goal-card {
+    background: var(--ink); color: var(--paper); padding: 22px;
+  }
+  .goal-label { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  .goal-count { font-family: "DM Serif Display", serif; font-size: 3.2rem; line-height: 1; margin: 4px 0 12px; }
+  .goal-count span { font-size: 1.2rem; color: rgba(246,239,225,0.7); }
+  .goal-bar { height: 14px; background: rgba(246,239,225,0.15); border: 1px solid var(--paper); }
+  .goal-bar > div { height: 100%; background: var(--gold); }
+  .goal-sub { margin-top: 8px; font-size: 0.9rem; color: rgba(246,239,225,0.75); }
+
+  .challenge-card {
+    padding: 22px; border: 3px double var(--rule); background: #fff;
+  }
+  .challenge-flag { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .challenge-card h4 { font-family: "DM Serif Display", serif; font-size: 1.4rem; margin: 6px 0 10px; line-height: 1.15; }
+
+  /* ---------- Tracker ---------- */
+  .story-article { max-width: 880px; font-size: 1.1rem; line-height: 1.7; }
+  .story-article h3 { font-family: "DM Serif Display", serif; font-size: 1.7rem; margin: 10px 0 10px; }
+
+  .tracker { margin-top: 22px; }
+  .tracker-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+  .tracker-head h3 { font-family: "DM Serif Display", serif; font-size: 2rem; margin: 0; }
+  .tracker-count { font-family: "JetBrains Mono", monospace; font-size: 0.9rem; color: var(--ink-2); }
+
+  .tracker-controls {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    padding: 16px; background: var(--paper-2); border: 2px solid var(--rule);
+  }
+  .tctrl { display: flex; flex-direction: column; gap: 6px; }
+  .tctrl span { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2); }
+  .tctrl select, .tctrl input {
+    padding: 14px 12px; font-size: 1.1rem; min-height: 52px;
+    border: 2px solid var(--rule); background: #fff;
+    font-family: "Source Serif 4", serif;
+  }
+
+  .tracker-list { margin-top: 18px; border-top: 3px solid var(--rule); }
+  .case {
+    border-bottom: 1px solid var(--rule);
+    padding: 22px 8px;
+    display: grid; grid-template-columns: 1fr; gap: 8px;
+    background: #fff;
+  }
+  .case:nth-child(odd) { background: var(--paper); }
+  .case-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .case-id {
+    font-family: "JetBrains Mono", monospace; font-size: 1rem; font-weight: 700;
+    color: var(--ink-2);
+  }
+  .case-status {
+    font-family: "DM Serif Display", serif; font-size: 0.95rem;
+    padding: 6px 12px; border: 2px solid var(--rule); background: #fff;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .status-logged        { background: var(--paper-2); }
+  .status-in-review     { background: var(--gold); color: var(--ink); }
+  .status-legal-action  { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .status-resolved      { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .case-meta {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-size: 0.98rem; color: var(--ink-2);
+  }
+  .case-summary { margin: 0; font-size: 1.08rem; line-height: 1.6; }
+  .tracker-empty {
+    padding: 40px 10px; text-align: center; font-style: italic; color: var(--ink-2);
+  }
+
+  /* ---------- Resources ---------- */
+  .res-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); margin-top: 16px;
+  }
+  .res {
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 22px 24px; background: #fff;
+  }
+  .res-tag { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .res h4 { font-family: "DM Serif Display", serif; font-size: 1.35rem; margin: 6px 0 8px; }
+  .res-link { display: inline-block; margin-top: 8px; font-weight: 700; color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+  .res-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* ---------- Footer ---------- */
+  .paper-footer { margin-top: 40px; }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 36px;
+    padding: 20px 0;
+  }
+  .footer-brand {
+    font-family: "DM Serif Display", serif; font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+  .footer-head {
+    font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .linklike { background: transparent; border: 0; color: var(--ink); text-decoration: underline; padding: 0; font: inherit; }
+  .footer-legal {
+    display: flex; justify-content: space-between; gap: 16px;
+    font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);
+    padding: 8px 0 0;
+  }
+
+  /* ---------- Tweaks ---------- */
+  .tweaks-panel {
+    position: fixed; right: 18px; bottom: 18px; z-index: 1000;
+    width: 320px; max-height: 80vh; overflow: auto;
+    background: #fff; border: 3px solid var(--rule);
+    box-shadow: 10px 10px 0 var(--rule);
+    padding: 16px; font-family: "Source Serif 4", serif;
+  }
+  .tweaks-panel h3 {
+    margin: 0 0 10px; font-family: "DM Serif Display", serif;
+    font-size: 1.3rem;
+  }
+  .tweaks-panel label { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-size: 0.9rem; }
+  .tweaks-panel input[type="text"],
+  .tweaks-panel input[type="color"],
+  .tweaks-panel input[type="number"],
+  .tweaks-panel textarea {
+    padding: 8px; font: inherit; border: 2px solid var(--rule); background: var(--paper);
+  }
+  .tweaks-panel textarea { min-height: 60px; resize: vertical; }
+  .tweaks-panel .row { display: flex; gap: 8px; align-items: center; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .lede-grid, .edit-sms, .two-col, .commitment-band, .band-split, .forms-grid {
+      grid-template-columns: 1fr;
+    }
+    .lede-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 16px; }
+    .lede-body { column-count: 1; }
+    .props-grid, .lt-grid, .founders-grid, .res-grid { grid-template-columns: 1fr; }
+    .tracker-controls { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 650px) {
+    .app { padding: 12px 12px 60px; }
+
+    /* Masthead */
+    .masthead-top {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      font-size: 0.65rem;
+      text-align: center;
+    }
+    .masthead-meta-center, .masthead-meta-right { text-align: center; }
+    .masthead-title { font-size: clamp(1.8rem, 10vw, 3rem); }
+    .masthead-motto { font-size: 0.95rem; }
+    .masthead-nav { gap: 4px; }
+    .nav-item { padding: 10px 10px; font-size: 0.85rem; letter-spacing: 0.02em; }
+    .text-size { padding: 4px 6px; }
+    .text-size button { min-width: 40px; min-height: 36px; padding: 6px 8px; }
+
+    /* Just In ticker */
+    .justin-label { font-size: 0.9rem; padding: 10px 12px; }
+    .justin-inner { font-size: 0.9rem; gap: 32px; padding: 10px 16px; }
+
+    /* Typography */
+    .big-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    .deck { font-size: 1.1rem; }
+    .lede-headline { font-size: clamp(2rem, 8vw, 3rem); }
+    .lede-subhead { font-size: 1.1rem; }
+    .lede-body { font-size: 1rem; }
+    .dropcap::first-letter { font-size: 3.2rem; }
+
+    /* Buttons */
+    .btn-primary, .btn-secondary { padding: 14px 18px; font-size: 1rem; min-height: 52px; }
+    .btn-big { padding: 16px 18px; font-size: 1.1rem; min-height: 56px; }
+
+    /* Side quote */
+    .side-quote p { font-size: 1.25rem; }
+    .side-quote .q-mark { font-size: 3rem; }
+
+    /* Counter */
+    .counter-value { font-size: 2.4rem; }
+
+    /* Props grid */
+    .prop { grid-template-columns: 48px 1fr; gap: 10px; padding: 16px 14px; }
+    .prop-num { font-size: 2rem; }
+    .prop-title { font-size: 1.15rem; }
+
+    /* Section titles */
+    .section-head { gap: 8px; margin: 14px 0 4px; }
+    .section-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+
+    /* Lie/Truth cards */
+    .lt-card { padding: 16px 14px; }
+    .lt-card h4 { font-size: 1.25rem; }
+
+    /* Editorial + SMS */
+    .editorial { padding: 18px 16px; }
+    .editorial-final { font-size: 1.25rem; }
+    .inline-sms { padding: 18px 16px; }
+    .inline-sms .section-title { font-size: 1.4rem !important; }
+    .inline-sms-form { flex-direction: column; }
+    .inline-sms-form input { border-right: 2px solid var(--paper); border-bottom: 0; }
+    .inline-sms-form .btn-primary { border-left: 2px solid var(--accent); border-top: 0; }
+
+    /* About page */
+    .story { font-size: 1rem; }
+    .pullquote { font-size: 1.25rem; padding: 14px 16px; }
+    .values-head { font-size: 1.4rem; }
+    .value-word { font-size: 1.2rem; }
+    .rail-num { font-size: 3.2rem; }
+    .commitment-band, .band-split { padding: 18px; gap: 16px; }
+    .band-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+
+    /* Leadership */
+    .founder-col { padding: 16px 14px 20px; }
+    .founder-meta h3 { font-size: 1.5rem; }
+    .founder-quote { font-size: 1.15rem; }
+    .founder-body { font-size: 0.98rem; }
+    .founder-photo { box-shadow: 4px 4px 0 var(--rule); }
+
+    /* Get Involved forms */
+    .form-card { padding: 20px 16px; }
+    .form-card h3 { font-size: 1.6rem; }
+    .big-form input, .big-form select { padding: 14px 12px; font-size: 1rem; min-height: 52px; }
+    .goal-count { font-size: 2.4rem; }
+    .challenge-card { padding: 16px; }
+    .challenge-card h4 { font-size: 1.2rem; }
+
+    /* Tracker */
+    .tracker-head h3 { font-size: 1.6rem; }
+    .tracker-controls { padding: 12px; gap: 10px; }
+    .tctrl select, .tctrl input { padding: 12px 10px; font-size: 1rem; min-height: 48px; }
+    .case { padding: 16px 10px; }
+    .case-id { font-size: 0.9rem; }
+    .case-status { font-size: 0.85rem; padding: 4px 8px; }
+    .case-meta { font-size: 0.9rem; gap: 10px; }
+    .case-summary { font-size: 1rem; }
+
+    /* Resources */
+    .res { padding: 16px 14px; }
+    .res h4 { font-size: 1.2rem; }
+
+    /* Footer */
+    .footer-brand { font-size: 1.3rem; }
+    .footer-legal { flex-direction: column; gap: 6px; font-size: 0.7rem; }
+
+    /* Tweaks panel */
+    .tweaks-panel { width: calc(100vw - 24px); right: 12px; bottom: 12px; box-shadow: 6px 6px 0 var(--rule); }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // ---------- Tweakable defaults ----------
+    const TWEAK_DEFAULTS = {
+      "mastheadName": "THE OAKLAND WORKER",
+      "motto": "A Paper For The People Who Run This City",
+      "accentColor": "#b42318",
+      "inkColor": "#1a1714",
+      "paperColor": "#f6efe1",
+      "baseFontSize": 20,
+      "showJustIn": true,
+      "headline": "WORKERS DECLARE: THE UNION IS OURS AGAIN",
+      "subhead": "After years of silence from SEIU leadership, three veteran organizers with 100+ combined years of experience launch Oakland Workers United."
+    };
+
+    // ---------- Formspree endpoint ----------
+    const FORMSPREE_URL = "https://formspree.io/f/mpqbvnwo";
+
+    // ---------- Data ----------
+    const TODAY = new Date().toLocaleDateString("en-US", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric"
+    });
+    const EDITION = "The Peoples Edition";
+
+    const NAV = [
+      { id: "front",      label: "Front Page" },
+      { id: "about",      label: "About / Mission" },
+      { id: "leadership", label: "Leadership" },
+      { id: "involved",   label: "Get Involved" },
+      { id: "practices",  label: "City Practices" },
+    ];
+
+    const VALUE_PROPS = [
+      { kicker: "Experience",   title: "100+ Years of Collective Experience",
+        body: "Our newly formed union brings together former and current members, officers, and stewards with over a century of combined experience fighting for workers' rights." },
+      { kicker: "Accountability", title: "A Stronger Voice for Accountability",
+        body: "With leadership experienced in holding management accountable, we ensure that workers' voices are heard and management is held responsible for their actions." },
+      { kicker: "Solidarity",   title: "Unity Across Generations",
+        body: "By uniting both current and former members, we create a broader network of solidarity that can tackle challenges with time-tested strategies." },
+      { kicker: "Integrity",    title: "Fighting For What's Right",
+        body: "This isn't just about organizing — it's about standing up to management, ensuring fair treatment, and demanding the respect and compensation you deserve." },
+      { kicker: "Leadership",   title: "Proven Leadership",
+        body: "Former chapter officers and stewards who have successfully navigated labor battles and know how to protect your rights effectively." },
+      { kicker: "Knowledge",    title: "Strength Through Experience",
+        body: "We know how the City of Oakland operates. Our seasoned leaders understand negotiations, grievances, and how to secure what's rightfully yours." },
+      { kicker: "Community",    title: "By The Workers, For The Workers",
+        body: "This union is built by those who've walked the same path as you — the struggles, fears, victories, and the importance of mutual support." },
+      { kicker: "Solidarity",   title: "Together, We Stand Strong",
+        body: "Whether you're facing management issues, seeking better working conditions, or demanding fair pay and benefits, we have your back." },
+      { kicker: "Action",       title: "Inclusive, Action-Oriented Leadership",
+        body: "We're not just a union in name. We're a union of action, pushing for meaningful change with leadership committed to fighting on all fronts." },
+    ];
+
+    const FOUNDERS = [
+      { photo: "AL.avif", name: "Al Marshall", role: "Co-Founder & Organizer",
+        years: "37 years with the City of Oakland",
+        prior: "Former SEIU Oakland Chapter President & Steward",
+        quote: "Representation isn't signing a contract and disappearing until the next cycle. It's a daily commitment to the worker's dignity.",
+        body: "Al recently retired after 37 years as a City of Oakland employee. He has held the line through multiple administrations and led his chapter through contract fights, grievances, arbitrations, and Civil Service Board appeals. He believes accountability must be held by both workers and leadership — no exceptions." },
+      { photo: "Tim.avif", name: "Tim Glasper", role: "Co-Founder & Chief Strategist",
+        years: "22 years as a respected steward",
+        prior: "Former SEIU Vice President",
+        quote: "You cannot negotiate a fair deal if you do not understand the city's operations. Experience is not optional — it is the job.",
+        body: "Tim has 22 years as a steward and served as Vice President of his former chapter. He focuses on the emotional cost of being ignored — when a grievance dies in a system, members lose faith in solidarity itself. His work at OWU is about restoring that faith, case by case." },
+      { photo: "Shirnell.avif", name: "Shirnell Smith", role: "Co-Founder & Member Engagement Lead",
+        years: "Veteran City organizer",
+        prior: "Longtime chapter steward",
+        quote: "A union should be a shield, not another hurdle. We were spending more time fighting the structure than fighting for each other.",
+        body: "Shirnell leads community and member engagement. She joined the founding effort after watching members exhaust themselves navigating the very structure that was supposed to protect them. Her focus is building something that truly belongs to the workers." },
+    ];
+
+    const FAILURES = [
+      { title: "The \"Bonus\" Deception",
+        body: "Members were sold a bonus whose tax and timing implications were never clearly disclosed. Leadership celebrated the announcement and left members to discover the real impact on their paychecks alone." },
+      { title: "The 3% Trigger",
+        body: "A raise structure tied to a trigger that leadership knew was unlikely to fire in the timeframe members were led to expect. Framed as a win. Functioned as a delay." },
+      { title: "Layoff Protections Cut Down",
+        body: "Historic layoff protections were reduced from six months to 120 days. Members were not meaningfully consulted, and the reduction was not highlighted in the summary materials circulated during the vote." },
+      { title: "The One-Year Trap",
+        body: "A contract structure that locks members into terms for a year with no meaningful ability to reopen core items — even when the City begins acting in bad faith before the ink is dry." },
+      { title: "Lack of Representation",
+        body: "Stewards report grievances going months without response. Members say they cannot get a callback. A union that does not answer the phone is not a union." },
+    ];
+
+    const VALUES = [
+      { word: "Transparency",      body: "Every decision, every dollar, every negotiation — open to the members it affects." },
+      { word: "Accountability",    body: "Leaders are answerable to members. Not the other way around. Not ever." },
+      { word: "Community",         body: "A union that belongs to the people who do the work, built in the neighborhoods we serve." },
+      { word: "Factual Advocacy",  body: "We fight with receipts. No spin, no mythology. The truth is on our side." },
+    ];
+
+    const TRACKER_SEED = [
+      { id: "OWU-2026-014", date: "2026-04-12", status: "Legal Action",  department: "Administration",  type: "Retaliation",         summary: "Memo issued restricting OWU organizers to standing only where the public stands, while permitting incumbent union activity in employee areas. Referred to labor counsel." },
+      { id: "OWU-2026-011", date: "2026-03-29", status: "In Review",     department: "Public Works",    type: "Contract Violation",  summary: "Reported failure to post overtime opportunities per contract Article 9. Multiple members affected; documentation collected." },
+      { id: "OWU-2026-009", date: "2026-03-18", status: "In Review",     department: "Parks & Rec",     type: "Systemic Failure",    summary: "Grievances filed Nov–Jan received no response within contractual windows. Pattern suggests a departmental, not individual, failure." },
+      { id: "OWU-2026-007", date: "2026-03-02", status: "Logged",        department: "Administration",  type: "Harassment",          summary: "Multiple reports from a single division describing a pattern of retaliation after members voiced support for a member-led union." },
+      { id: "OWU-2026-003", date: "2026-02-10", status: "Resolved",      department: "Public Works",    type: "Contract Violation",  summary: "Shift bid was corrected after OWU-supported grievance. Members restored to proper assignments." },
+      { id: "OWU-2026-001", date: "2026-01-22", status: "Legal Action",  department: "Mayor's Office",  type: "Systemic Failure",    summary: "Direct appeals to the Mayor and City Administrator regarding restricted-access memo met with silence. Formal complaint in preparation." },
+    ];
+
+    // ---------- Shared UI ----------
+    function Rule({ heavy, double }) {
+      if (double) return <div className="rule rule-double" aria-hidden="true" />;
+      if (heavy)  return <div className="rule rule-heavy" aria-hidden="true" />;
+      return <div className="rule" aria-hidden="true" />;
+    }
+
+    function Placeholder({ src, alt, label, ratio }) {
+      return (
+        <div className="placeholder" style={{ aspectRatio: ratio || "16/9" }}>
+          {src ? <img src={src} alt={alt || label || "Placeholder image"} /> : null}
+          <div className="placeholder-label">{label || "PLACEHOLDER"}</div>
+        </div>
+      );
+    }
+
+    function Masthead({ t, route, setRoute, textScale, setTextScale }) {
+      return (
+        <header className="masthead" data-screen-label="Masthead">
+          <div className="masthead-top">
+            <div className="masthead-meta">
+              <span>{EDITION}</span>
+            </div>
+            <div className="masthead-meta masthead-meta-center">
+              <span>OAKLAND, CALIFORNIA</span>
+            </div>
+            <div className="masthead-meta masthead-meta-right">
+              <span>{TODAY}</span>
+            </div>
+          </div>
+          <Rule />
+          <div className="masthead-name">
+            <h1 className="masthead-title">{t.mastheadName}</h1>
+            <div className="masthead-motto">“{t.motto}”</div>
+          </div>
+          <Rule double />
+          <nav className="masthead-nav" aria-label="Primary">
+            {NAV.map(n => (
+              <button
+                key={n.id}
+                className={"nav-item " + (route === n.id ? "is-active" : "")}
+                onClick={() => setRoute(n.id)}
+                aria-current={route === n.id ? "page" : undefined}
+              >{n.label}</button>
+            ))}
+            <div className="nav-spacer" />
+            <div className="text-size" role="group" aria-label="Text size">
+              <span className="text-size-label">TEXT SIZE</span>
+              <button aria-label="Decrease text size" onClick={() => setTextScale(s => Math.max(0.9, +(s - 0.1).toFixed(2)))}>A−</button>
+              <button aria-label="Reset text size" onClick={() => setTextScale(1)}>A</button>
+              <button aria-label="Increase text size" onClick={() => setTextScale(s => Math.min(1.4, +(s + 0.1).toFixed(2)))}>A+</button>
+            </div>
+          </nav>
+          <Rule heavy />
+        </header>
+      );
+    }
+
+    function JustInBar({ t }) {
+      if (!t.showJustIn) return null;
+      const items = [
+        "JUST IN — Founders call for live Zoom debate; incumbent leadership silent.",
+        "JUST IN — 312 commitment cards signed this week. 888 to goal.",
+        "JUST IN — Accountability Tracker goes public: six active cases.",
+        "JUST IN — City memo restricts OWU to public-only areas. Legal review underway.",
+      ];
+      return (
+        <div className="justin" role="region" aria-label="Just In updates">
+          <div className="justin-label">JUST IN</div>
+          <div className="justin-track"><div className="justin-inner">
+            {items.concat(items).map((it, i) => <span key={i} className="justin-item">{it}</span>)}
+          </div></div>
+        </div>
+      );
+    }
+
+    function Footer({ setRoute }) {
+      return (
+        <footer className="paper-footer" data-screen-label="Footer">
+          <Rule heavy />
+          <div className="footer-grid">
+            <div>
+              <div className="footer-brand">OAKLAND WORKERS UNITED</div>
+              <p>A worker-led union built by City of Oakland employees — founded to restore transparency, accountability, and factual advocacy to public service.</p>
+            </div>
+            <div>
+              <div className="footer-head">Sections</div>
+              <ul className="footer-list">
+                {NAV.map(n => <li key={n.id}><button className="linklike" onClick={() => setRoute(n.id)}>{n.label}</button></li>)}
+              </ul>
+            </div>
+            <div>
+              <div className="footer-head">Contact</div>
+              <ul className="footer-list">
+                <li>{"\n"}</li>
+                <li>contact@oaklandworkersunited.com</li>
+                <li>{"\n"}</li>
+              </ul>
+            </div>
+          </div>
+          <Rule />
+          <div className="footer-legal">
+            <span>© {new Date().getFullYear()} Oakland Workers United</span>
+            <span>Published in Oakland · Printed On The People's Time</span>
+          </div>
+        </footer>
+      );
+    }
+
+    function InlineSmsCard() {
+      const [phone, setPhone] = useState("");
+      const [status, setStatus] = useState("");
+      async function submit(e) {
+        e.preventDefault();
+        if (!phone) { setStatus("Please enter a phone number."); return; }
+        setStatus("Sending…");
+        try {
+          const res = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              phone: phone,
+              _subject: 'OWU SMS Opt-In (Front Page)',
+              formType: 'sms-inline'
+            })
+          });
+          if (res.ok) {
+            setStatus("You're on the list. Watch for urgent updates.");
+            setPhone("");
+          } else {
+            setStatus("Something went wrong. Please try again later.");
+          }
+        } catch (err) {
+          setStatus("Network error. Please check your connection and try again.");
+        }
+      }
+      return (
+        <section className="inline-sms">
+          <div className="section-kicker">Text Opt-In</div>
+          <h3 className="section-title">Get The Record, Delivered To Your Phone</h3>
+          <p>One or two messages a week. Never shared. Stop any time.</p>
+          <form onSubmit={submit} className="inline-sms-form">
+            <label className="visually-hidden" htmlFor="inline-sms-phone">Phone Number</label>
+            <input id="inline-sms-phone" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(510) 555-0143" />
+            <button type="submit" className="btn-primary">Sign Me Up</button>
+          </form>
+          {status && <div className="form-status" role="status">{status}</div>}
+          <p className="disclaimer">By submitting you opt in to receive automated messages from Oakland Workers United. Text <strong>HELP</strong> for help, <strong>STOP</strong> to end.</p>
+        </section>
+      );
+    }
+
+    // ---------- FRONT PAGE ----------
+    function FrontPage({ t, setRoute }) {
+      return (
+        <main className="page" data-screen-label="01 Front Page">
+          <JustInBar t={t} />
+          <Rule heavy />
+
+          <section className="lede-grid">
+            <div className="lede-main">
+              <div className="kicker">Founding Edition · Special Report</div>
+              <h2 className="lede-headline">{t.headline}</h2>
+              <p className="lede-subhead">{t.subhead}</p>
+              <div className="byline">By The Editorial Board · Filed {TODAY}</div>
+              <Rule />
+              <div className="lede-body">
+                <p className="dropcap">
+                  On a Tuesday morning at a community center on International Boulevard, three veterans of organized labor — Albert Marshall, Tim Glasper, and Shirnell Smith — sat down with a folder of grievances, a contract, and a commitment: <strong>the representation of City of Oakland workers is going to change, starting now.</strong>
+                </p>
+                <p>
+                  Between them they bring more than a century of experience inside the union — chapter presidents, vice presidents, stewards, and bargaining team members who have sat across from every recent City administration. They have taken grievances to arbitration, filed appeals before the Civil Service Board, and walked members through layoffs, demotions, and promotions alike. They do not need an introduction to the work. They needed a union that would still do it.
+                </p>
+                <p>
+                  Oakland Workers United (OWU) is that union — worker-led, worker-built, and accountable to members alone.
+                </p>
+              </div>
+              <div className="lede-cta">
+                <button className="btn-primary" onClick={() => setRoute("involved")}>Sign Your Commitment Card</button>
+                <button className="btn-secondary" onClick={() => setRoute("about")}>Read Our Mission</button>
+              </div>
+            </div>
+
+            <aside className="lede-side">
+              <Placeholder
+                src="./owu-headquarters.png"
+                alt="O.W.U. Headquarters"
+                label="O.W.U. · Headquarters"
+                ratio="4/5"
+              />
+              <div className="caption"><strong>Above:</strong> O.W.U. Headquarters. The union has a new address.</div>
+              <div className="side-quote">
+                <div className="q-mark">“</div>
+                <p>They stopped answering the phone. We picked up our own.</p>
+                <div className="q-attr">— Al Marshall, Co-Founder</div>
+              </div>
+              <div className="counter-box">
+                <div className="counter-label">Commitment Cards Signed</div>
+                <div className="counter-value"><span>312</span><span className="counter-total">/ 1,200</span></div>
+                <div className="counter-bar"><div style={{width: "26%"}} /></div>
+                <div className="counter-sub">888 more members to reach goal.</div>
+              </div>
+            </aside>
+          </section>
+
+          <Rule heavy />
+
+          {/* Nine-value section laid out as columns */}
+          <section className="props-section">
+            <div className="section-head">
+              <div className="section-kicker">The Case For OWU</div>
+              <h3 className="section-title">Nine Reasons We Are Standing Up</h3>
+            </div>
+            <Rule />
+            <div className="props-grid">
+              {VALUE_PROPS.map((v, i) => (
+                <article className="prop" key={i}>
+                  <div className="prop-num">{String(i+1).padStart(2,"0")}</div>
+                  <div className="prop-body">
+                    <div className="prop-kicker">{v.kicker}</div>
+                    <h4 className="prop-title">{v.title}</h4>
+                    <p>{v.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <Rule heavy />
+
+          {/* Lie / Truth */}
+          <section className="lt-section">
+            <div className="section-head">
+              <div className="section-kicker">Fact Check</div>
+              <h3 className="section-title">What They Said · What Really Happened</h3>
+            </div>
+            <Rule />
+            <div className="lt-grid">
+              {FAILURES.slice(0,4).map((f, i) => (
+                <article className="lt-card" key={i}>
+                  <div className="lt-tag">Claim vs. Record</div>
+                  <h4>{f.title}</h4>
+                  <p>{f.body}</p>
+                </article>
+              ))}
+            </div>
+            <div className="lt-more">
+              <button className="btn-secondary" onClick={() => setRoute("practices")}>See All Cases On Record</button>
+            </div>
+          </section>
+
+          <Rule heavy />
+
+          {/* Editorial box + SMS */}
+          <section className="edit-sms">
+            <article className="editorial">
+              <div className="section-kicker">From The Editors</div>
+              <h3 className="section-title">Unions Are Built On Answered Phones</h3>
+              <p>A union is a promise between working people. When that promise goes unanswered — when grievances sit in a drawer, when layoff protections shrink in the fine print, when the chapter president will not debate her own members — the promise has been broken. OWU is the repair.</p>
+              <p>We are not a protest. We are a replacement — member-led, locally based, and staffed by the people who already know the job. The question for every City worker reading this paper is simple:</p>
+              <p className="editorial-final">Who do you want answering the phone when you need your union?</p>
+            </article>
+            <InlineSmsCard />
+          </section>
+        </main>
+      );
+    }
+
+    // ---------- ABOUT ----------
+    function AboutPage({ t, setRoute }) {
+      return (
+        <main className="page" data-screen-label="02 About">
+          <section className="page-head">
+            <div className="kicker">Section B · Mission &amp; Values</div>
+            <h2 className="big-title">Why We Formed Oakland Workers United</h2>
+            <p className="deck">Breaking the silence. Restoring integrity. Reclaiming the union that belongs to the workers who built this city.</p>
+          </section>
+          <Rule heavy />
+
+          <section className="two-col">
+            <div className="story">
+              <p className="dropcap">For years, Shirnell Smith, Tim Glasper, and I listened to our colleagues' frustrations. We saw the same failures repeat and the same silence from those who were supposed to fight for us. So instead of trying to fix a broken system from the inside, we built something better — something worker-led, honest, and accountable.</p>
+
+              <p>That is how Oakland Workers United was born: <strong>a union created by city workers, for city workers.</strong> No outsiders. No corrupt politics. Just real people who love this city and want to bring integrity back to our movement.</p>
+
+              <p>Between the three of us, we bring over 100 years of experience in contract negotiations, grievances, meet-and-confer meetings, arbitration, appeals before the Civil Service Board, and direct engagement with multiple City administrations and mayors. Ask your current officers how much experience they have — and you will see the difference.</p>
+
+              <blockquote className="pullquote">
+                We challenged President Blue and her team to a live Zoom debate, open to all members. We wanted transparency. We wanted accountability. They stayed silent. That silence speaks volumes.
+              </blockquote>
+
+              <p>When OWU began meeting with City workers, a few stewards contacted Chapter President Antoinnette Blue, and of course they opposed our efforts and ran to management with complaints. Instead of staying neutral, the City took SEIU's side — even sending out a memo restricting OWU to stand only where the public stands. That is not neutrality. That is discrimination.</p>
+
+              <p>We brought this injustice straight to the Mayor and the City Administrator, and what did we receive? Silence again. But make no mistake — we will not be silenced. We are standing up, organizing, and reclaiming the union that truly belongs to the workers who built this city.</p>
+
+              <p className="signoff">— Al Marshall, Co-Founder, on behalf of Tim Glasper and Shirnell Smith</p>
+            </div>
+
+            <aside className="values-rail">
+              <div className="values-head">Our Core Values</div>
+              {VALUES.map((v, i) => (
+                <div key={i} className="value-row">
+                  <div className="value-word">{v.word}</div>
+                  <div className="value-body">{v.body}</div>
+                </div>
+              ))}
+              <div className="rail-card">
+                <div className="rail-num">100<span>+</span></div>
+                <div className="rail-num-label">Years of Combined Experience</div>
+              </div>
+              <div className="rail-card rail-card-alt">
+                <div className="rail-title">Why Now</div>
+                <p>Members cannot get grievances answered. Layoff protections have been quietly cut. The chapter president will not debate her own members. The silence is the reason.</p>
+              </div>
+            </aside>
+          </section>
+
+          <Rule heavy />
+
+          <section className="commitment-band">
+            <div>
+              <div className="kicker">Our Commitment</div>
+              <h3 className="band-title">Three Bargaining Priorities — Coming Soon</h3>
+              <p>OWU has identified three items that directly affect your livelihood and must be addressed in the next bargaining cycle. We are holding specifics until we sit at the table — because the moment we publish them, the incumbent will claim they were already on the list. They are not. We will fight for them anyway.</p>
+            </div>
+            <button className="btn-primary" onClick={() => setRoute("involved")}>Join The Fight</button>
+          </section>
+        </main>
+      );
+    }
+
+    // ---------- LEADERSHIP ----------
+    function LeadershipPage({ setRoute }) {
+      return (
+        <main className="page" data-screen-label="03 Leadership">
+          <section className="page-head">
+            <div className="kicker">Section C · Who Is Running This Union</div>
+            <h2 className="big-title">Proven Leadership, On The Record</h2>
+            <p className="deck">Three founders. More than a century of bargaining, grievances, arbitrations, and appeals. Read them in their own words.</p>
+          </section>
+          <Rule heavy />
+          <div className="founders-grid">
+            {FOUNDERS.map((f, i) => (
+              <article className="founder-col" key={i}>
+                <div className="founder-photo"><img src={f.photo} alt={f.name} /></div>
+                <div className="founder-meta">
+                  <h3>{f.name}</h3>
+                  <div className="founder-role">{f.role}</div>
+                  <div className="founder-tags">
+                    <span>{f.years}</span>
+                    <span>{f.prior}</span>
+                  </div>
+                </div>
+                <blockquote className="founder-quote">“{f.quote}”</blockquote>
+                <p className="founder-body">{f.body}</p>
+              </article>
+            ))}
+          </div>
+
+          <Rule heavy />
+
+          <section className="band-split">
+            <div>
+              <div className="kicker">Open Invitation</div>
+              <h3 className="band-title">The Debate The Incumbent Will Not Take</h3>
+              <p>OWU has publicly invited the current SEIU chapter leadership to a live Zoom debate, open to all members. The invitation stands. The silence is theirs.</p>
+            </div>
+            <button className="btn-primary" onClick={() => setRoute("involved")}>Stand With OWU</button>
+          </section>
+        </main>
+      );
+    }
+
+    // ---------- GET INVOLVED ----------
+    function InvolvedPage() {
+      const [enroll, setEnroll] = useState({ name:"", email:"", phone:"", department:"" });
+      const [sms, setSms] = useState({ phone:"" });
+      const [enrollStatus, setEnrollStatus] = useState("");
+      const [smsStatus, setSmsStatus] = useState("");
+
+      async function submitEnroll(e) {
+        e.preventDefault();
+        if (!enroll.name || !enroll.email || !enroll.phone || !enroll.department) {
+          setEnrollStatus("Please fill in every field before submitting.");
+          return;
+        }
+        setEnrollStatus("Sending…");
+        try {
+          const res = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...enroll,
+              _subject: 'OWU Commitment Card',
+              _replyto: enroll.email,
+              formType: 'enrollment'
+            })
+          });
+          if (res.ok) {
+            setEnrollStatus("Thank you, " + enroll.name.split(" ")[0] + ". Your commitment card is on file. An organizer will be in touch within 48 hours.");
+            setEnroll({ name:"", email:"", phone:"", department:"" });
+          } else {
+            setEnrollStatus("Something went wrong. Please try again later.");
+          }
+        } catch (err) {
+          setEnrollStatus("Network error. Please check your connection and try again.");
+        }
+      }
+      async function submitSms(e) {
+        e.preventDefault();
+        if (!sms.phone) { setSmsStatus("Please enter a phone number."); return; }
+        setSmsStatus("Sending…");
+        try {
+          const res = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              phone: sms.phone,
+              _subject: 'OWU SMS Opt-In',
+              formType: 'sms'
+            })
+          });
+          if (res.ok) {
+            setSmsStatus("You're on the list. Watch for urgent updates.");
+            setSms({ phone:"" });
+          } else {
+            setSmsStatus("Something went wrong. Please try again later.");
+          }
+        } catch (err) {
+          setSmsStatus("Network error. Please check your connection and try again.");
+        }
+      }
+
+      return (
+        <main className="page" data-screen-label="04 Get Involved">
+          <section className="page-head">
+            <div className="kicker">Section D · Action</div>
+            <h2 className="big-title">Join The Movement</h2>
+            <p className="deck">Our power is strongest when we stand together. Sign your commitment card, or opt in for text updates. We never share your information with the City or any other union.</p>
+          </section>
+          <Rule heavy />
+
+          <div className="forms-grid">
+            <section className="form-card">
+              <div className="form-kicker">Primary Action</div>
+              <h3>Sign Your Commitment Card</h3>
+              <p className="form-lede">A commitment card tells us you support a worker-led union. It does not change your current membership. It helps us reach our goal of <strong>1,200 signatures</strong>.</p>
+              <form onSubmit={submitEnroll} className="big-form" noValidate>
+                <label><span>Full Name</span>
+                  <input type="text" value={enroll.name} onChange={e => setEnroll({...enroll, name:e.target.value})} placeholder="Your full name" autoComplete="name" />
+                </label>
+                <label><span>Email Address</span>
+                  <input type="email" value={enroll.email} onChange={e => setEnroll({...enroll, email:e.target.value})} placeholder="you@example.com" autoComplete="email" />
+                </label>
+                <label><span>Phone Number</span>
+                  <input type="tel" value={enroll.phone} onChange={e => setEnroll({...enroll, phone:e.target.value})} placeholder="(510) 555-0143" autoComplete="tel" />
+                </label>
+                <label><span>City Department</span>
+                  <select value={enroll.department} onChange={e => setEnroll({...enroll, department:e.target.value})}>
+                    <option value="">Select your department</option>
+                    <option>Public Works</option>
+                    <option>Parks &amp; Recreation</option>
+                    <option>Oakland Public Library</option>
+                    <option>Administration</option>
+                    <option>Finance</option>
+                    <option>Human Services</option>
+                    <option>Transportation</option>
+                    <option>Other / Prefer Not To Say</option>
+                  </select>
+                </label>
+                <button type="submit" className="btn-primary btn-big">Sign My Commitment Card</button>
+                {enrollStatus && <div className="form-status" role="status">{enrollStatus}</div>}
+              </form>
+            </section>
+
+            <aside className="form-side">
+              <section className="form-card form-card-sms">
+                <div className="form-kicker">Fast Option</div>
+                <h3>Text Updates Only</h3>
+                <p className="form-lede">Get urgent updates by text. One or two messages per week. No spam, ever.</p>
+                <form onSubmit={submitSms} className="big-form">
+                  <label><span>Phone Number</span>
+                    <input type="tel" value={sms.phone} onChange={e => setSms({phone:e.target.value})} placeholder="(510) 555-0143" autoComplete="tel" />
+                  </label>
+                  <button type="submit" className="btn-primary btn-big">I Want Updates</button>
+                  {smsStatus && <div className="form-status" role="status">{smsStatus}</div>}
+                </form>
+                <p className="disclaimer">By submitting you opt in to receive automated messages from Oakland Workers United. Text <strong>HELP</strong> for help, <strong>STOP</strong> to end. Message &amp; data rates may apply. Frequency varies.</p>
+              </section>
+
+              <section className="goal-card">
+                <div className="goal-label">Signature Goal</div>
+                <div className="goal-count">312 <span>of 1,200</span></div>
+                <div className="goal-bar"><div style={{width:"26%"}} /></div>
+                <div className="goal-sub">Updated {TODAY}. 888 to go.</div>
+              </section>
+
+              <section className="challenge-card">
+                <div className="challenge-flag">The Challenge</div>
+                <h4>Ask Your Chapter Officers Why They Won't Debate Us.</h4>
+                <p>OWU has publicly invited incumbent SEIU leadership to a live Zoom debate — on the contract, the bonus, and the future of representation in Oakland. They have declined to respond. Ask why.</p>
+              </section>
+            </aside>
+          </div>
+        </main>
+      );
+    }
+
+    // ---------- CITY PRACTICES / TRACKER ----------
+    function PracticesPage() {
+      const [filterStatus, setFilterStatus] = useState("All");
+      const [filterDept, setFilterDept]     = useState("All");
+      const [query, setQuery]               = useState("");
+
+      const statuses = ["All","Logged","In Review","Legal Action","Resolved"];
+      const depts = useMemo(() => {
+        const s = new Set(TRACKER_SEED.map(r => r.department));
+        return ["All", ...Array.from(s)];
+      }, []);
+
+      const rows = useMemo(() => TRACKER_SEED.filter(r =>
+        (filterStatus === "All" || r.status === filterStatus) &&
+        (filterDept === "All" || r.department === filterDept) &&
+        (query === "" || (r.summary + r.type + r.id).toLowerCase().includes(query.toLowerCase()))
+      ), [filterStatus, filterDept, query]);
+
+      return (
+        <main className="page" data-screen-label="05 City Practices">
+          <section className="page-head">
+            <div className="kicker">Section E · Public Record</div>
+            <h2 className="big-title">City Discriminatory Practices</h2>
+            <p className="deck">In the spirit of transparency: a live record of documented cases affecting City of Oakland workers. Personally identifying information is removed. Updated weekly.</p>
+          </section>
+
+          <Rule heavy />
+
+          <section className="story-article">
+            <h3>Why This Page Exists</h3>
+            <p>When OWU organizers began meeting with workers in break rooms and public plazas, the City issued a memo restricting OWU to areas open only to the general public — while continuing to allow incumbent union representatives full access to employee spaces. That is not neutrality. It is a thumb on the scale.</p>
+            <p>We wrote to the Mayor. We wrote to the City Administrator. We received silence. So we are publishing the record instead. Every case below is drawn from documentation submitted by members.</p>
+          </section>
+
+          <Rule />
+
+          <section className="tracker">
+            <div className="tracker-head">
+              <h3>Management Accountability Tracker</h3>
+              <div className="tracker-count">{rows.length} {rows.length === 1 ? "case" : "cases"} shown</div>
+            </div>
+
+            <div className="tracker-controls" role="group" aria-label="Filter cases">
+              <label className="tctrl">
+                <span>Status</span>
+                <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+                  {statuses.map(s => <option key={s}>{s}</option>)}
+                </select>
+              </label>
+              <label className="tctrl">
+                <span>Department</span>
+                <select value={filterDept} onChange={e => setFilterDept(e.target.value)}>
+                  {depts.map(d => <option key={d}>{d}</option>)}
+                </select>
+              </label>
+              <label className="tctrl tctrl-search">
+                <span>Search</span>
+                <input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search case ID, type, or summary" />
+              </label>
+            </div>
+
+            <div className="tracker-list">
+              {rows.length === 0 && <div className="tracker-empty">No cases match your filters. Try widening the search.</div>}
+              {rows.map(r => (
+                <article key={r.id} className="case">
+                  <div className="case-top">
+                    <div className="case-id">{r.id}</div>
+                    <div className={"case-status status-" + r.status.toLowerCase().replace(/\s+/g, "-")}>{r.status}</div>
+                  </div>
+                  <div className="case-meta">
+                    <span><strong>Filed:</strong> {r.date}</span>
+                    <span><strong>Dept:</strong> {r.department}</span>
+                    <span><strong>Type:</strong> {r.type}</span>
+                  </div>
+                  <p className="case-summary">{r.summary}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <Rule heavy />
+
+          <section className="resources">
+            <div className="section-head">
+              <div className="section-kicker">For Members</div>
+              <h3 className="section-title">Legal Resources &amp; Bylaws</h3>
+            </div>
+            <div className="res-grid">
+              <article className="res">
+                <div className="res-tag">Document</div>
+                <h4>Union Bylaws — Article IV</h4>
+                <p>Member representation standards, grievance timelines, and the duty of fair representation.</p>
+                <a href="#" onClick={e => e.preventDefault()} className="res-link">Read the document →</a>
+              </article>
+              <article className="res">
+                <div className="res-tag">Document</div>
+                <h4>Civil Service Board Rules</h4>
+                <p>How appeals work for disciplinary action, demotion, and termination. Timelines matter.</p>
+                <a href="#" onClick={e => e.preventDefault()} className="res-link">Read the document →</a>
+              </article>
+              <article className="res">
+                <div className="res-tag">Correspondence</div>
+                <h4>Letter To The Mayor &amp; City Administrator</h4>
+                <p>Our formal request regarding the restricted-access memo, and the response (or lack thereof).</p>
+                <a href="#" onClick={e => e.preventDefault()} className="res-link">Read the document →</a>
+              </article>
+              <article className="res">
+                <div className="res-tag">Hotline</div>
+                <h4>Report A New Incident</h4>
+                <p>If you have documentation of a discriminatory practice, send it to us. We do not publish names or PII.</p>
+                <a href="mailto:tips@oaklandworkersunited.com" className="res-link">tips@oaklandworkersunited.com →</a>
+              </article>
+            </div>
+          </section>
+        </main>
+      );
+    }
+
+    // ---------- Tweaks Panel ----------
+    function applyTweaks(t) {
+      document.documentElement.style.setProperty('--accent', t.accentColor);
+      document.documentElement.style.setProperty('--ink', t.inkColor);
+      document.documentElement.style.setProperty('--paper', t.paperColor);
+      document.documentElement.style.setProperty('--rule', t.inkColor);
+      document.documentElement.style.setProperty('font-size',
+        `calc(${t.baseFontSize}px * var(--tx, 1))`);
+    }
+
+    function TweaksPanel({ t, setT, visible }) {
+      if (!visible) return null;
+      const upd = (k) => (e) => {
+        const v = e.target.type === 'number' ? Number(e.target.value) :
+                  e.target.type === 'checkbox' ? e.target.checked :
+                  e.target.value;
+        const next = { ...t, [k]: v };
+        setT(next);
+      };
+      return (
+        <div className="tweaks-panel" role="dialog" aria-label="Tweaks">
+          <h3>Tweaks</h3>
+          <label>Masthead name
+            <input type="text" value={t.mastheadName} onChange={upd('mastheadName')} />
+          </label>
+          <label>Motto
+            <input type="text" value={t.motto} onChange={upd('motto')} />
+          </label>
+          <label>Front page headline
+            <textarea value={t.headline} onChange={upd('headline')} />
+          </label>
+          <label>Front page subhead
+            <textarea value={t.subhead} onChange={upd('subhead')} />
+          </label>
+          <div className="row">
+            <label style={{flex:1}}>Accent
+              <input type="color" value={t.accentColor} onChange={upd('accentColor')} />
+            </label>
+            <label style={{flex:1}}>Ink
+              <input type="color" value={t.inkColor} onChange={upd('inkColor')} />
+            </label>
+            <label style={{flex:1}}>Paper
+              <input type="color" value={t.paperColor} onChange={upd('paperColor')} />
+            </label>
+          </div>
+          <label>Base font size (px)
+            <input type="number" min="16" max="28" value={t.baseFontSize} onChange={upd('baseFontSize')} />
+          </label>
+          <label className="row" style={{alignItems:'center', gap:8}}>
+            <input type="checkbox" checked={t.showJustIn} onChange={upd('showJustIn')} />
+            <span>Show "Just In" ticker</span>
+          </label>
+        </div>
+      );
+    }
+
+    // ---------- App ----------
+    function App() {
+      const [route, setRoute] = useState(() => localStorage.getItem('owu_route') || 'front');
+      const [textScale, setTextScale] = useState(() => Number(localStorage.getItem('owu_tx') || 1));
+      const [t, setT] = useState(TWEAK_DEFAULTS);
+      const [tweakVisible, setTweakVisible] = useState(false);
+
+      useEffect(() => { localStorage.setItem('owu_route', route); window.scrollTo({top:0, behavior:'instant'}); }, [route]);
+      useEffect(() => { localStorage.setItem('owu_tx', textScale); document.documentElement.style.setProperty('--tx', textScale); }, [textScale]);
+      useEffect(() => { applyTweaks(t); }, [t]);
+
+      let Page = FrontPage;
+      if (route === 'about')      Page = AboutPage;
+      if (route === 'leadership') Page = LeadershipPage;
+      if (route === 'involved')   Page = InvolvedPage;
+      if (route === 'practices')  Page = PracticesPage;
+
+      return (
+        <div className="app">
+          <Masthead t={t} route={route} setRoute={setRoute} textScale={textScale} setTextScale={setTextScale} />
+          <Page t={t} setRoute={setRoute} />
+          <Footer setRoute={setRoute} />
+          <TweaksPanel t={t} setT={setT} visible={tweakVisible} />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
