@@ -96,24 +96,110 @@
   .nav-item:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   .nav-spacer { flex: 1; }
 
-  .text-size {
-    display: flex; align-items: center; gap: 6px;
+  /* ---------- Mini Player ---------- */
+  .mini-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 2px solid var(--rule);
+    background: var(--paper);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--ink-2);
-    padding: 4px 8px;
+    max-width: 320px;
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .mini-player.collapsed {
+    transform: translateY(calc(100% + 30px));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .mini-player-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
     border: 1px solid var(--rule);
-    background: rgba(255,255,255,0.4);
+    flex-shrink: 0;
   }
-  .text-size-label { margin-right: 6px; }
-  .text-size button {
-    background: var(--paper); border: 1px solid var(--rule);
-    padding: 6px 10px; font-weight: 700;
-    font-family: "DM Serif Display", serif; font-size: 0.95rem;
-    min-width: 44px; min-height: 38px;
+  .mini-player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
   }
-  .text-size button:hover { background: var(--ink); color: var(--paper); }
-  .text-size button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .mini-player-title {
+    font-family: "DM Serif Display", serif;
+    font-size: 0.95rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mini-player-artist {
+    font-size: 0.7rem;
+    color: var(--ink-3);
+  }
+  .mini-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mini-player-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .mini-player-btn:hover { background: var(--accent); }
+  .mini-player-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .mini-player-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    background: var(--ink);
+    color: var(--paper);
+    border: 2px solid var(--rule);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding: 0;
+  }
+  .mini-player-toggle:hover { background: var(--accent); }
+  .mini-player-toggle:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .mini-player-progress {
+    width: 100%;
+    height: 3px;
+    background: var(--paper-2);
+    margin-top: 4px;
+    position: relative;
+  }
+  .mini-player-progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s linear;
+  }
 
   /* ---------- Just In ticker ---------- */
   .justin {
@@ -586,9 +672,6 @@
     .masthead-motto { font-size: 0.95rem; }
     .masthead-nav { gap: 4px; }
     .nav-item { padding: 10px 10px; font-size: 0.85rem; letter-spacing: 0.02em; }
-    .text-size { padding: 4px 6px; }
-    .text-size button { min-width: 40px; min-height: 36px; padding: 6px 8px; }
-
     /* Just In ticker */
     .justin-label { font-size: 0.9rem; padding: 10px 12px; }
     .justin-inner { font-size: 0.9rem; gap: 32px; padding: 10px 16px; }
@@ -805,7 +888,7 @@
       );
     }
 
-    function Masthead({ t, route, setRoute, textScale, setTextScale }) {
+    function Masthead({ t, route, setRoute }) {
       return (
         <header className="masthead" data-screen-label="Masthead">
           <div className="masthead-top">
@@ -834,13 +917,6 @@
                 aria-current={route === n.id ? "page" : undefined}
               >{n.label}</button>
             ))}
-            <div className="nav-spacer" />
-            <div className="text-size" role="group" aria-label="Text size">
-              <span className="text-size-label">TEXT SIZE</span>
-              <button aria-label="Decrease text size" onClick={() => setTextScale(s => Math.max(0.9, +(s - 0.1).toFixed(2)))}>A−</button>
-              <button aria-label="Reset text size" onClick={() => setTextScale(1)}>A</button>
-              <button aria-label="Increase text size" onClick={() => setTextScale(s => Math.min(1.4, +(s + 0.1).toFixed(2)))}>A+</button>
-            </div>
           </nav>
           <Rule heavy />
         </header>
@@ -1474,12 +1550,10 @@
     // ---------- App ----------
     function App() {
       const [route, setRoute] = useState(() => localStorage.getItem('owu_route') || 'front');
-      const [textScale, setTextScale] = useState(() => Number(localStorage.getItem('owu_tx') || 1));
       const [t, setT] = useState(TWEAK_DEFAULTS);
       const [tweakVisible, setTweakVisible] = useState(false);
 
       useEffect(() => { localStorage.setItem('owu_route', route); window.scrollTo({top:0, behavior:'instant'}); }, [route]);
-      useEffect(() => { localStorage.setItem('owu_tx', textScale); document.documentElement.style.setProperty('--tx', textScale); }, [textScale]);
       useEffect(() => { applyTweaks(t); }, [t]);
 
       let Page = FrontPage;
@@ -1490,11 +1564,73 @@
 
       return (
         <div className="app">
-          <Masthead t={t} route={route} setRoute={setRoute} textScale={textScale} setTextScale={setTextScale} />
+          <Masthead t={t} route={route} setRoute={setRoute} />
           <Page t={t} setRoute={setRoute} />
           <Footer setRoute={setRoute} />
           <TweaksPanel t={t} setT={setT} visible={tweakVisible} />
+          <MiniPlayer />
         </div>
+      );
+    }
+
+    function MiniPlayer() {
+      const [isPlaying, setIsPlaying] = useState(false);
+      const [isExpanded, setIsExpanded] = useState(true);
+      const [progress, setProgress] = useState(0);
+      const audioRef = useRef(null);
+
+      useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const onTime = () => {
+          if (audio.duration) setProgress((audio.currentTime / audio.duration) * 100);
+        };
+        const onEnded = () => setIsPlaying(false);
+        audio.addEventListener('timeupdate', onTime);
+        audio.addEventListener('ended', onEnded);
+        return () => {
+          audio.removeEventListener('timeupdate', onTime);
+          audio.removeEventListener('ended', onEnded);
+        };
+      }, []);
+
+      const togglePlay = () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        if (isPlaying) { audio.pause(); setIsPlaying(false); }
+        else { audio.play().then(() => setIsPlaying(true)).catch(() => {}); }
+      };
+
+      return (
+        <>
+          <button
+            className="mini-player-toggle"
+            aria-label={isExpanded ? "Hide music player" : "Show music player"}
+            onClick={() => setIsExpanded(e => !e)}
+            style={{ display: isExpanded ? 'none' : 'flex' }}
+          >
+            🎵
+          </button>
+          <div className={"mini-player " + (isExpanded ? "" : "collapsed")} role="region" aria-label="Music player">
+            <img className="mini-player-thumb" src="https://upload.wikimedia.org/wikipedia/en/6/6e/Daddy_Marco_One_of_a_Kind.jpg" alt="Daddy Marco — One of a Kind" />
+            <div className="mini-player-info">
+              <div className="mini-player-title">One of a Kind</div>
+              <div className="mini-player-artist">Daddy Marco</div>
+              <div className="mini-player-controls">
+                <button className="mini-player-btn" aria-label={isPlaying ? "Pause" : "Play"} onClick={togglePlay}>
+                  {isPlaying ? "⏸" : "▶"}
+                </button>
+                <button className="mini-player-btn" aria-label="Hide player" onClick={() => setIsExpanded(false)}>
+                  ✕
+                </button>
+              </div>
+              <div className="mini-player-progress" aria-hidden="true">
+                <div className="mini-player-progress-bar" style={{ width: progress + '%' }} />
+              </div>
+            </div>
+            <audio ref={audioRef} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="none" />
+          </div>
+        </>
       );
     }
 
