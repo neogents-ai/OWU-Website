@@ -1612,9 +1612,9 @@
             🎵
           </button>
           <div className={"mini-player " + (isExpanded ? "" : "collapsed")} role="region" aria-label="Music player">
-            <img className="mini-player-thumb" src="daddy-marco.jpg" alt="Daddy Marco — One of a Kind" />
+            <img className="mini-player-thumb" src="daddy-marco.jpg" alt="Daddy Marco — Fight for Freedom" />
             <div className="mini-player-info">
-              <div className="mini-player-title">One of a Kind</div>
+              <div className="mini-player-title">Fight for Freedom</div>
               <div className="mini-player-artist">Daddy Marco</div>
               <div className="mini-player-controls">
                 <button className="mini-player-btn" aria-label={isPlaying ? "Pause" : "Play"} onClick={togglePlay}>
@@ -1628,7 +1628,7 @@
                 <div className="mini-player-progress-bar" style={{ width: progress + '%' }} />
               </div>
             </div>
-            <audio ref={audioRef} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="none" />
+            <audio ref={audioRef} src="daddy-marco.mp3" preload="none" />
           </div>
         </>
       );
