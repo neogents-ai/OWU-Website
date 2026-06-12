@@ -302,6 +302,10 @@
   }
   .q-attr { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-2); }
 
+  .side-video { margin: 22px 0; }
+  .side-video video { width: 100%; border: 2px solid var(--rule); display: block; background: #000; }
+  .video-caption { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2); margin-top: 10px; line-height: 1.4; }
+
   .counter-box { border: 2px solid var(--rule); padding: 18px; background: #fff; }
   .counter-label { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-2); }
   .counter-value { font-family: "DM Serif Display", serif; font-size: 3rem; margin: 2px 0 10px; display:flex; align-items: baseline; gap: 10px; }
@@ -1062,6 +1066,13 @@
                 <div className="q-mark">“</div>
                 <p>They stopped answering the phone. We picked up our own.</p>
                 <div className="q-attr">— Al Marshall, Co-Founder</div>
+              </div>
+              <div className="side-video">
+                <video controls preload="metadata" poster="./video-poster.jpg">
+                  <source src="./video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="video-caption">They're fighting for your union dues and NOT your union rights!</div>
               </div>
             </aside>
           </section>
