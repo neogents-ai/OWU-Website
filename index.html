@@ -1011,20 +1011,7 @@
           setStatus("Network error. Please check your connection and try again.");
         }
       }
-      return (
-        <section className="inline-sms">
-          <div className="section-kicker">Text Opt-In</div>
-          <h3 className="section-title">Get The Record, Delivered To Your Phone</h3>
-          <p>One or two messages a week. Never shared. Stop any time.</p>
-          <form onSubmit={submit} className="inline-sms-form">
-            <label className="visually-hidden" htmlFor="inline-sms-phone">Phone Number</label>
-            <input id="inline-sms-phone" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(510) 555-0143" />
-            <button type="submit" className="btn-primary">Sign Me Up</button>
-          </form>
-          {status && <div className="form-status" role="status">{status}</div>}
-          <p className="disclaimer">By submitting you opt in to receive automated messages from Oakland Workers United. Text <strong>HELP</strong> for help, <strong>STOP</strong> to end.</p>
-        </section>
-      );
+      return null; // SMS opt-in removed — we connect with workers directly
     }
 
     // ---------- FRONT PAGE ----------
@@ -1315,7 +1302,7 @@
           <section className="page-head">
             <div className="kicker">Section D · Action</div>
             <h2 className="big-title">Join The Movement</h2>
-            <p className="deck">Our power is strongest when we stand together. Sign your commitment card, or opt in for text updates. We never share your information with the City or any other union.</p>
+            <p className="deck">Our power is strongest when we stand together. Fill out the form below and an OWU organizer will reach out to deliver your commitment card in person. We never share your information with the City or any other union.</p>
           </section>
           <Rule heavy />
 
@@ -1323,7 +1310,7 @@
             <section className="form-card">
               <div className="form-kicker">Primary Action</div>
               <h3>Sign Your Commitment Card</h3>
-              <p className="form-lede">A commitment card tells us you support a worker-led union. It does not change your current membership. It helps us reach our goal of <strong>1,200 signatures</strong>.</p>
+              <p className="form-lede">This is a contact form to connect you with an OWU organizer who will deliver your commitment card in person. A commitment card tells us you support a worker-led union. It does not change your current membership. We believe in face-to-face connection — that's what being for the people means.</p>
               <form onSubmit={submitEnroll} className="big-form" noValidate>
                 <label><span>Full Name</span>
                   <input type="text" value={enroll.name} onChange={e => setEnroll({...enroll, name:e.target.value})} placeholder="Your full name" autoComplete="name" />
@@ -1353,27 +1340,6 @@
             </section>
 
             <aside className="form-side">
-              <section className="form-card form-card-sms">
-                <div className="form-kicker">Fast Option</div>
-                <h3>Text Updates Only</h3>
-                <p className="form-lede">Get urgent updates by text. One or two messages per week. No spam, ever.</p>
-                <form onSubmit={submitSms} className="big-form">
-                  <label><span>Phone Number</span>
-                    <input type="tel" value={sms.phone} onChange={e => setSms({phone:e.target.value})} placeholder="(510) 555-0143" autoComplete="tel" />
-                  </label>
-                  <button type="submit" className="btn-primary btn-big">I Want Updates</button>
-                  {smsStatus && <div className="form-status" role="status">{smsStatus}</div>}
-                </form>
-                <p className="disclaimer">By submitting you opt in to receive automated messages from Oakland Workers United. Text <strong>HELP</strong> for help, <strong>STOP</strong> to end. Message &amp; data rates may apply. Frequency varies.</p>
-              </section>
-
-              <section className="goal-card">
-                <div className="goal-label">Signature Goal</div>
-                <div className="goal-count">312 <span>of 1,200</span></div>
-                <div className="goal-bar"><div style={{width:"26%"}} /></div>
-                <div className="goal-sub">Updated {TODAY}. 888 to go.</div>
-              </section>
-
               <section className="challenge-card">
                 <div className="challenge-flag">The Challenge</div>
                 <h4>Ask Your Chapter Officers Why They Won't Debate Us.</h4>
